@@ -1,2 +1,2 @@
-systemBlockDiagram.drawio
-systemBlockDiagram_xml.drawio
+systemBlockDiagram
+systemBlockDiagram_xml
