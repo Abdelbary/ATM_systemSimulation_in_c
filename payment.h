@@ -42,7 +42,11 @@ typedef enum EN_transStat
     APPROVED
 }EN_transStat;
 
-
+/**
+ * this enum used to store the state of the transaction throw several states it goes throw
+ * the state is update throw every stage of the transaction life cycle
+ */
+ 
 typedef enum EN_state{
     INPUTCAPTURE,
     VALIDATION,
@@ -69,11 +73,15 @@ typedef struct ST_terminalData
     unsigned char transactionDate[TRANS_DATE_LEN];
 }ST_terminalData;
 
+
+
 typedef struct ST_serverData
 {
     EN_transStat transactionStatus;
     unsigned int receiptReferenceNumber;
 }ST_serverData;
+
+
 
 typedef struct ST_transaction
 {
@@ -94,14 +102,62 @@ typedef struct ST_accountBalance
 
 
 /*............Card-side APIs...........*/
+
+/**
+* \b Description: fill the card data from the user as part of the smiulation 
+*				
+* 
+* @param[in]     ST_transaction struct to hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
 void fillCardData(ST_transaction *transaction);
+/**
+* \b Description: check if the transation amount is > the max trans allowed amount. 
+*				
+* 
+* @param[in]     ST_transaction struct that hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
+
 void checkAmount(ST_transaction *transaction);
 
 /*  Terminal-Side APIs */
+/**
+* \b Description: the terminal __ATM__ uses the user card data a well the transation amount to validate them and send them to server 
+*				
+* 
+* @param[in]     ST_transaction struct to hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
+
 void fillTerminalData(ST_transaction *transaction);
+/**
+* \b Description: validate card expiry date      
+*				
+* 
+* @param[in]     ST_transaction struct to hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
+
 void checkExpiryDate(ST_transaction *transaction);
 
 /*  Server-Side APIs  */
+/**
+* \b Description: if the transaction is valid then send it to server side and save it 
+*				
+* 
+* @param[in]     ST_transaction struct to hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
+
 void saveTransactionIntoServer(ST_transaction *transaction);
+/**
+* \b Description: at server side the transaction amount is validated agnist the current account balance 
+*				
+* 
+* @param[in]     ST_transaction struct to hold transaction info [cardNumber-cardHolderName-expiry date]  
+* @return: void 
+*/
+
 void checkBalance(ST_transaction *transaction);
 

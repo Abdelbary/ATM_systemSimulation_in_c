@@ -1,6 +1,6 @@
 #include "payment.h"
 
-
+extern EN_state transState;
 int main(){
     
 
