@@ -1,2 +1,0 @@
-systemBlockDiagram
-systemBlockDiagram_xml
